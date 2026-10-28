@@ -1,0 +1,82 @@
+@model Matress_Website.Models.Mattress
+<div class="product-card h-100" data-category="@Model.CategoryKey" data-firm="@Model.FirmnessLevel" data-name="@Model.Name">
+    <div class="product-img">
+        <img src="~/Image/web/@Model.Image" alt="@Model.Name mattress" loading="lazy" />
+        <span class="product-tag">@Model.Tag</span>
+        @if (Model.Images.Count > 1)
+        {
+            <span class="photo-count"><i class="bi bi-images"></i> @Model.Images.Count</span>
+        }
+        <button type="button" class="quick-view" data-bs-toggle="modal" data-bs-target="#modal-@Model.Id">
+            <i class="bi bi-eye"></i> Quick View
+        </button>
+    </div>
+    <div class="product-body">
+        <span class="product-cat">@Model.Category</span>
+        <h3>@Model.Name</h3>
+        <p>@Model.Summary</p>
+        <div class="firmness" title="Firmness: @Model.Firmness">
+            <div class="d-flex justify-content-between small mb-1">
+                <span>Firmness</span><strong>@Model.Firmness</strong>
+            </div>
+            <div class="firm-bar"><span style="width:@(Model.FirmnessLevel * 10)%"></span></div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <a class="btn btn-gold btn-sm flex-grow-1" target="_blank" rel="noopener"
+               href="https://wa.me/971545721826?text=@Uri.EscapeDataString($"Hello Velora Living, I'm interested in the {Model.Name} mattress. Please share price & sizes.")">
+                <i class="bi bi-whatsapp"></i> Enquire
+            </a>
+            <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modal-@Model.Id">Details</button>
+        </div>
+    </div>
+</div>
+
+<!-- Quick view modal -->
+<div class="modal fade" id="modal-@Model.Id" tabindex="-1" aria-labelledby="modal-@Model.Id-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content product-modal">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="row g-0">
+                <div class="col-md-6 modal-gallery">
+                    <img src="~/Image/web/@Model.Image" alt="@Model.Name" class="gallery-main" loading="lazy" />
+                    @if (Model.Images.Count > 1)
+                    {
+                        <div class="gallery-thumbs">
+                            @for (int i = 0; i < Model.Images.Count; i++)
+                            {
+                                <button type="button" class="@(i == 0 ? "active" : "")" data-src="@Url.Content("~/Image/web/" + Model.Images[i])" aria-label="View photo @(i + 1)">
+                                    <img src="~/Image/web/@Model.Images[i]" alt="" loading="lazy" />
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6 p-4 p-lg-5">
+                    <span class="product-cat">@Model.Category &middot; @Model.Height</span>
+                    <h3 id="modal-@Model.Id-title" class="mb-3">@Model.Name</h3>
+                    <p>@Model.Summary</p>
+                    <ul class="check-list mb-3">
+                        @foreach (var f in Model.Features)
+                        {
+                            <li>@f</li>
+                        }
+                    </ul>
+                    <p class="small mb-2"><strong>Best for:</strong> @Model.BestFor</p>
+                    <p class="small mb-1"><strong>Firmness:</strong> @Model.Firmness</p>
+                    <div class="firm-bar mb-3"><span style="width:@(Model.FirmnessLevel * 10)%"></span></div>
+                    <label class="form-label small fw-semibold" for="size-@Model.Id">Choose size</label>
+                    <select class="form-select form-select-sm mb-3 size-select" id="size-@Model.Id">
+                        @foreach (var s in Matress_Website.Models.Mattress.Sizes)
+                        {
+                            <option>@s</option>
+                        }
+                    </select>
+                    <a class="btn btn-gold w-100 wa-size-link" target="_blank" rel="noopener" data-product="@Model.Name"
+                       href="https://wa.me/971545721826">
+                        <i class="bi bi-whatsapp"></i> Get Price on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

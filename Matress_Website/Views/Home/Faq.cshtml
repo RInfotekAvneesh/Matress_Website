@@ -1,0 +1,81 @@
+@{
+    ViewData["Title"] = "FAQ";
+    ViewData["PageHeading"] = "Frequently Asked Questions";
+    ViewData["PageSub"] = "Everything you need to know about choosing, buying and caring for your Velora mattress.";
+    ViewData["PageImage"] = "room-teal.jpg";
+
+    var faqs = new (string Group, string Q, string A)[]
+    {
+        ("Choosing", "How do I choose the right mattress?", "Consider your sleeping position, body weight, any back or joint pain, and whether you sleep hot. Side sleepers usually prefer softer surfaces, while back and stomach sleepers need more support. Try our Mattress Finder on the Home page or message us for a free consultation."),
+        ("Choosing", "What is the difference between Bonnell and pocket spring mattresses?", "Bonnell springs are linked together into one strong unit, which makes them durable and great value. Pocket springs are individually wrapped and move independently, so they contour to your body better and stop you feeling your partner move."),
+        ("Choosing", "What is the difference between a Euro Top and a Pillow Top?", "Both add an extra comfort layer on top of the mattress. A Euro Top is sewn flush with the sides for a neat, structured look and balanced feel. A Pillow Top is stitched on as a separate cushioned layer for a softer, plusher feel."),
+        ("Choosing", "Which mattress is best for back pain?", "Most people with back pain benefit from a firm, supportive mattress that keeps the spine aligned. Our Velora Medical Mattress is designed for this, and the Pocket Spring is a popular alternative. If pain is severe, please consult a medical professional."),
+        ("Choosing", "What is a folding foam mattress used for?", "Folding foam mattresses fold up for easy storage and carrying. They're ideal for guests, kids' sleepovers, floor seating, travel and small apartments."),
+        ("Choosing", "I sleep hot. Which mattress is best for Dubai's climate?", "Spring mattresses such as our Pocket Spring and Bonnell Spring allow more airflow than solid foam. Pair them with our breathable knitted fabric covers to help you stay cool through warm nights."),
+        ("Sizes", "What mattress sizes do you offer?", "We offer Single (90x190), Double (120x200), Queen (160x200), King (180x200) and Super King (200x200), plus custom sizes made to measure."),
+        ("Sizes", "Can you make a custom-size mattress?", "Yes. Send us your bed frame measurements (length, width and preferred height) on WhatsApp or email and we'll prepare a quotation."),
+        ("Orders & Delivery", "How do I place an order?", "Simply contact us on WhatsApp at +971 54 572 1826, call us, or email veloraliving2026@gmail.com. We'll confirm the model, size, price and delivery slot."),
+        ("Orders & Delivery", "Do you deliver across Dubai and the UAE?", "Yes, we deliver across Dubai, with delivery options available to other Emirates. Delivery timing and any charges will be confirmed when you place your order."),
+        ("Orders & Delivery", "Do you offer installation and old mattress removal?", "Yes. Our team can set up your new mattress and, on request, remove your old one. Please mention this when ordering."),
+        ("Orders & Delivery", "What payment methods do you accept?", "Payment options will be confirmed with your order. Please contact our team for the currently available methods."),
+        ("Care & Warranty", "Does my mattress come with a warranty?", "Velora mattresses come with a manufacturer's warranty against manufacturing defects. Warranty duration varies by model and will be confirmed at the time of purchase."),
+        ("Care & Warranty", "How should I care for my mattress?", "Use a mattress protector, rotate the mattress every 3 months (head to foot), keep it on a supportive, flat base, avoid bending it, and air the room regularly. Spot clean with mild soap and water; never soak the mattress."),
+        ("Care & Warranty", "How long does a mattress last?", "A good-quality mattress typically lasts 7–10 years with proper care. If you wake up stiff, notice sagging, or sleep better elsewhere, it may be time to replace it."),
+        ("Business", "Do you supply hotels and holiday homes?", "Yes. We supply hotels, holiday homes, serviced apartments, staff accommodation and interior design projects with volume pricing. Contact us for a business quotation.")
+    };
+    var groups = faqs.Select(f => f.Group).Distinct().ToList();
+}
+
+<partial name="_PageHeader" />
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="faq-side reveal">
+                    <div class="search-box mb-4">
+                        <i class="bi bi-search"></i>
+                        <input type="search" id="faqSearch" class="form-control" placeholder="Search questions..." aria-label="Search FAQs" />
+                    </div>
+                    <div class="filter-pills vertical mb-4" role="group" aria-label="FAQ categories">
+                        <button type="button" class="active" data-faq="all">All Questions</button>
+                        @foreach (var g in groups)
+                        {
+                            <button type="button" data-faq="@g">@g</button>
+                        }
+                    </div>
+                    <div class="help-card">
+                        <i class="bi bi-chat-dots"></i>
+                        <h5>Still have questions?</h5>
+                        <p>Our sleep experts are happy to help.</p>
+                        <a href="https://wa.me/971545721826" target="_blank" rel="noopener" class="btn btn-gold w-100 mb-2"><i class="bi bi-whatsapp"></i> WhatsApp Us</a>
+                        <a href="mailto:veloraliving2026@gmail.com" class="btn btn-outline-light w-100"><i class="bi bi-envelope"></i> Email Us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="accordion faq-accordion" id="faqAccordion">
+                    @for (int i = 0; i < faqs.Length; i++)
+                    {
+                        var f = faqs[i];
+                        <div class="accordion-item faq-item reveal" data-group="@f.Group">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button @(i == 0 ? "" : "collapsed")" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq-@i" aria-expanded="@(i == 0 ? "true" : "false")" aria-controls="faq-@i">
+                                    <span class="faq-group">@f.Group</span>@f.Q
+                                </button>
+                            </h2>
+                            <div id="faq-@i" class="accordion-collapse collapse @(i == 0 ? "show" : "")" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">@f.A</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div id="faqEmpty" class="text-center py-5 d-none">
+                    <i class="bi bi-question-circle display-5 text-gold"></i>
+                    <p class="mt-3">No questions match your search. <a asp-action="Contact">Ask us directly</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

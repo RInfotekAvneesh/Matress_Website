@@ -1,0 +1,105 @@
+@{
+    ViewData["Title"] = "Contact Us";
+    ViewData["PageHeading"] = "Contact Us";
+    ViewData["PageSub"] = "We'd love to help you find your perfect night's sleep.";
+    ViewData["PageImage"] = "dubai-marina.jpg";
+}
+
+<partial name="_PageHeader" />
+
+<section class="section">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-sm-6 col-lg-3 reveal">
+                <a href="tel:+971545721826" class="contact-card">
+                    <i class="bi bi-telephone"></i><h5>Call Us</h5><span>+971 54 572 1826</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3 reveal">
+                <a href="https://wa.me/971545721826" target="_blank" rel="noopener" class="contact-card">
+                    <i class="bi bi-whatsapp"></i><h5>WhatsApp</h5><span>Chat with our team</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3 reveal">
+                <a href="mailto:veloraliving2026@gmail.com" class="contact-card">
+                    <i class="bi bi-envelope"></i><h5>Email</h5><span>veloraliving2026@gmail.com</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3 reveal">
+                <a href="https://maps.google.com/?q=Dubai,+United+Arab+Emirates" target="_blank" rel="noopener" class="contact-card">
+                    <i class="bi bi-geo-alt"></i><h5>Location</h5><span>Dubai, United Arab Emirates</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-lg-7 reveal">
+                <div class="form-card">
+                    <span class="eyebrow">Send an Enquiry</span>
+                    <h2 class="section-title mb-2">Let's Talk Comfort</h2>
+                    <p class="text-muted mb-4">Fill in the form and it will open WhatsApp with your message ready to send, or choose email instead.</p>
+                    <form id="contactForm" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="cName" class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="cName" required />
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cPhone" class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" id="cPhone" placeholder="+971" required pattern="[0-9+\s\-]{7,}" />
+                                <div class="invalid-feedback">Please enter a valid phone number.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="cEmail" />
+                                <div class="invalid-feedback">Please enter a valid email.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cInterest" class="form-label">Interested In</label>
+                                <select class="form-select" id="cInterest">
+                                    <option>General Enquiry</option>
+                                    @foreach (var c in Matress_Website.Models.Mattress.Categories)
+                                    {
+                                        <option>@c.Label Mattress</option>
+                                    }
+                                    <option>Custom Size Mattress</option>
+                                    <option>Hotel / Bulk Order</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="cMessage" class="form-label">Message *</label>
+                                <textarea class="form-control" id="cMessage" rows="5" required placeholder="Tell us about the size, firmness or anything else you need..."></textarea>
+                                <div class="invalid-feedback">Please enter a message.</div>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap gap-2">
+                                <button type="submit" class="btn btn-gold btn-lg" data-via="whatsapp"><i class="bi bi-whatsapp"></i> Send via WhatsApp</button>
+                                <button type="submit" class="btn btn-dark-green btn-lg" data-via="email"><i class="bi bi-envelope"></i> Send via Email</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="formSuccess" class="alert alert-success mt-4 d-none" role="status">
+                        <i class="bi bi-check-circle"></i> Thank you! Your message is ready. Just press send in the app that opened.
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 reveal">
+                @* Placeholder hours – update to your actual opening hours. *@
+                <div class="hours-card mb-4">
+                    <h4><i class="bi bi-clock"></i> Business Hours</h4>
+                    <ul>
+                        <li><span>Monday – Saturday</span><span>10:00 AM – 10:00 PM</span></li>
+                        <li><span>Sunday</span><span>12:00 PM – 9:00 PM</span></li>
+                        <li><span>WhatsApp Enquiries</span><span>Anytime</span></li>
+                    </ul>
+                    <h5 class="mt-4 mb-3">Follow Us</h5>
+                    <partial name="_Social" />
+                </div>
+                <div class="map-wrap">
+                    <iframe title="Velora Living location – Dubai" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            src="https://maps.google.com/maps?q=Dubai,%20United%20Arab%20Emirates&amp;t=&amp;z=11&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,17 @@
+@* Inner-page banner. Pass ViewData: PageHeading, PageSub, PageImage *@
+<section class="page-header" style="background-image:url('@Url.Content("~/Image/web/" + (ViewData["PageImage"] ?? "lounge.jpg"))')">
+    <div class="container position-relative">
+        <span class="eyebrow">Velora Living</span>
+        <h1>@ViewData["PageHeading"]</h1>
+        @if (ViewData["PageSub"] != null)
+        {
+            <p class="lead mb-3">@ViewData["PageSub"]</p>
+        }
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="~/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+            </ol>
+        </nav>
+    </div>
+</section>
