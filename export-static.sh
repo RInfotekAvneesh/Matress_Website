@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Runs the published app and saves every page as static HTML into ./_site.
-# Usage: ./export-static.sh <publish-dir> <path-base>   e.g. ./export-static.sh publish /Matress_Website
+# Usage: ./export-static.sh <publish-dir> [path-base]   e.g. ./export-static.sh publish /Matress_Website
+#        Pass "" as the path base when the site is served from a domain root.
 set -euo pipefail
 
 PUBLISH_DIR="$1"
-BASE="${2%/}"
+BASE="${2:-}"
+BASE="${BASE%/}"
 PORT=5055
 OUT="_site"
 PAGES=(Home/Collection Home/About Home/Services Home/Faq Home/Contact Home/Privacy Home/Terms)

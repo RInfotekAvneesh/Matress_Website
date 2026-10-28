@@ -27,8 +27,11 @@ jobs:
       - name: Publish app
         run: dotnet publish Matress_Website/Matress_Website.csproj -c Release -o publish
 
+      # Served at the root of the custom domain, so no path base is needed.
       - name: Export static pages
-        run: bash export-static.sh publish "/${{ github.event.repository.name }}"
+        run: |
+          bash export-static.sh publish ""
+          echo "veloralivingllc.com" > _site/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:
