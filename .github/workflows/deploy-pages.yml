@@ -31,7 +31,7 @@ jobs:
       - name: Export static pages
         run: |
           bash export-static.sh publish ""
-          echo "veloralivingllc.com" > _site/CNAME
+          echo "www.veloralivingllc.com" > _site/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:
